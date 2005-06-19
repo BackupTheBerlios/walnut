@@ -1,0 +1,12 @@
+#header {
+    height: 110px;
+}
+#menu {
+    width: 30%;
+    float: left;
+}
+#content {
+    width: 69%;
+    float:left;
+    // border-style:double;
+}
