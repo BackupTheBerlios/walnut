@@ -1,0 +1,95 @@
+README
+======
+
+Thank you for choosing wte. WTE stands for Walnut's Template Engine. You know it's in early development stage, but now it works fine, for me. ;-)
+
+Any problems, suggestions, features or comments please contact me: 
+	Kacper Nyka <kacper.nyka@gmail.com>
+
+
+Functions:
+==========
+ - you can only create variables
+ - you can also create _only_ indexed arrays
+   
+
+Requirements:
+============
+Any webserver (Apache, ...)
+PHP4 (should also work under PHP5, I didn't test it)
+
+
+Installation:
+=============
+
+First off all you need to copy the following file:
+   - wte.php 
+   
+Copy this file to any directory you want, but the constant WTE_DIR must be set correct, this means the right 
+directory to this one with the wte.php file. 
+
+Here you can see, how you can create a new instance of wte, they're several ways for it:
+
+1) +-------------------------+
+   | require('wte.php');    |
+   | $tpl = new wte;       |
+   +-------------------------+
+   
+2) the absolute path to wte.php
+   +------------------------------------------------------------------+
+   | require('/home/kacper/public_html/phpsite/wte/wte.php');         |
+   | $tpl = new wte;  					              |
+   +------------------------------------------------------------------+
+
+3) setting manually the WTE_DIR constant
+   +-------------------------------------------------------------------+
+   | define(WTE_DIR, '/home/kacper/public_html/phpsite/wte/');         |
+   | require(WTE_DIR.'wte.php');			               |
+   | $tpl = new wte;					               |
+   +-------------------------------------------------------------------+
+   
+It's better to set the WTE_DIR constant manually, but it's your choice, I cannot stop you :-)
+Now, the library is in the right place, so we should create the directory for the template files.
+
+Let's make with an example ;-)
+
+We are writing a PHP site, with wte as the template engine. We've such a data structure
+
+  +-----------------------------------------------------------+
+  | /home/kacper/public_html/phpsite/wte/wte.php              |  <= path to the wte.php file
+  | /home/kacper/public_html/phpsite/index.php                |  <= path to the file for our example, the php site 
+  | /home/kacper/public_html/phpsite/templates/               |  <= path to the directory with the template files 
+  |-----------------------------------------------------------+
+
+Here you can also choose an other template directory, but this way is really safety. I recommend this way.
+
+
+Now let's write a site (the index.php) using the template engine:
+
+  index.php
+  +-----------------------------------------------------------------------------+
+  | <?php                 						        |
+  | define(WTE_DIR, '/home/kacper/public_html/phpsite/wte/');                   |
+  | require(WTE_DIR.'wte.php');			                                |
+  | 									        |
+  | $tpl = new wte;						                |
+  |									        |
+  | $tpl->CreateVar('hello', 'Hello, my dear! ;-)');                            |
+  | $tpl->CreateArr('array_1', array("American Football", "Linux", "Apache"));  |
+  | $tpl->DisplayTpl('index.tpl');					        |
+  | ?>									        |
+  +-----------------------------------------------------------------------------+
+  
+  index.tpl
+  +--------------------------------+
+  |<html>                          |
+  |<body>                          |
+  |[hello] <br>                    |
+  |[array_1]                       |
+  |</body>                         |
+  |</html>                         |
+  +--------------------------------+
+  
+You see, with the method CreateVar() you can create a variable with its value. With DisplayTpl() you give as the parameter
+the name of the template file. Variables in the template files you must write with these brackets -> [var_name]
+The engine searchs only these variables, used in this way. Other ones it will ignore. 

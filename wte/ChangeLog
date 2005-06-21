@@ -1,0 +1,14 @@
+ WTE ChangeLog
+===================
+
+version 0.2.1pre (no release date, is in CVS) - Kacper Nyka <kacper.nyka@gmail.com>
+	- completely rewritten the template engine
+	- added method loadTemplate()
+	- changed names of methods
+
+version 0.2 (released 13th June, 2005, 0:39) - Kacper Nyka <kacper.nyka@gmail.com>
+	- creating indexed arrays does work now
+	- optimized the source code
+
+version 0.1 (released 10th June, 2005) - Kacper Nyka <kacper.nyka@gmail.com>
+	- initial release
