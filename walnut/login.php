@@ -30,62 +30,32 @@ require_once('./includes/IT.php');
 
 session_start();
 define("PHPSESSID", session_id());
-$HTTP_SESSION_VARS["remoteip"] = $HTTP_SERVER_VARS["REMOTE_ADDR"];
 if(!(isset($HTTP_GET_VARS["PHPSESSID"])))
 {
-	header("Location: index.php?PHPSESSID=". session_id());
+	header("Location: login.php?PHPSESSID=". session_id());
 	return 0;
 }
-
-
-//error_reporting(E_ALL);
-$ref = $HTTP_GET_VARS["ref"];
-
 
 $walnut_db = new dbMysql;
 $tpl = new HTML_Template_IT("./templates");
 $user = new user;
 
-$tpl->loadTemplatefile("index.tpl", true, true);
-
-// data for the news
-$news_id = $walnut_db->fetchDataDB('news', 'news_id', 'desc');
-$news_author = $walnut_db->fetchDataDB('news', 'news_author', 'desc');
-$news_title = $walnut_db->fetchDataDB('news', 'news_title', 'desc');
-$news_date = $walnut_db->fetchDataDB('news', 'news_date', 'desc');
-$news_content = $walnut_db->fetchDataDB('news', 'news_content', 'desc');
-
-$num = count($news_id);
-for($i = 0; $i < $num; $i++)
+if(!(isset($HTTP_GET_VARS["action"])))
 {
-	$tpl->setCurrentBlock("news");
-	$tpl->setVariable("TIT_NEWS", $news_title[$i]);
-	$tpl->setVariable("AUTHOR_NEWS", $news_author[$i]);
-	$tpl->setVariable("DATE_NEWS", $news_date[$i]);
-	$news_content[$i] = nl2br($news_content[$i]);
-	$tpl->setVariable("CONTENT_NEWS", $news_content[$i]);
-	$tpl->parseCurrentBlock("news");
+	$tpl->loadTemplatefile("login.tpl", true, true);
 }
 
-/// data from database
+if($HTTP_GET_VARS["action"] == "logging_in")
+{
+	$username = $walnut_db->fetchDataDB('users', 'username', 'asc', 'user_name', $HTTP_POST_VARS["username"]);
+	$password_md5 = $walnut_db->fetchDataDB('users', 'user_password', 'asc', 'user_name', $HTTP_POST_VARS["username"]);
+	$password2_md5 = md5($HTTP_POST_VARS["password"]);
+	$user->login($username, $password_md5, $password2_md5);
+}
+
 // data for title and logo url
 $title = $walnut_db->fetchDataDB('settings', 'title');
 $logo = $walnut_db->fetchDataDB('settings', 'logo_url');
-
-// data for the menu
-$menu_id = $walnut_db->fetchDataDB('menu','id');
-$menu_name = $walnut_db->fetchDataDB('menu','name');
-$menu_ref = $walnut_db->fetchDataDB('menu','ref');
-
-$num = count($menu_id);
-for($i = 0; $i < $num; $i++)
-{
-	$tpl->setCurrentBlock("menu");
-	$tpl->setVariable("REF", $menu_ref[$i]);
-	$tpl->setVariable("NAME", $menu_name[$i]);
-	$tpl->setVariable("ID", $menu_id[$i]);
-	$tpl->parseCurrentBlock("menu");
-}
 
 $tpl->setVariable("TITLE", $title["0"]);
 $tpl->setVariable("LOGO", $logo["0"]);
