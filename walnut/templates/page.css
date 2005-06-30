@@ -1,12 +1,53 @@
 #header {
-    height: 110px;
+    height: 91px;
+    border: 1px dotted black;
 }
 #menu {
-    width: 30%;
+    width: 20%;
+//    height: 500px;
     float: left;
+    border-left: 1px dotted black;
+    border-bottom: 1px dotted black;
 }
 #content {
     width: 69%;
+//    height: 500px;
     float:left;
-    // border-style:double;
+    border-left: 1px dotted black;
+    border-bottom: 1px dotted black;
+    border-right: 1px dotted black;
+}
+
+#login-section {
+	float: center;
+}
+
+body {
+  background: white;
+  color: black;
+  font-family: verdana, arial,helvetica,sans-serif;
+
+}
+
+a {
+  background: transparent;
+  color: #566e41;
+  font-weight: bold;
+}
+
+p {
+	font-family: helvetica, arial;
+	size: 10px;
+}
+
+.small-caps {
+	font-variant: small-caps;
+}
+
+.navy {
+	color: navy;
+}
+
+.small {
+	font-size: 12px;
 }

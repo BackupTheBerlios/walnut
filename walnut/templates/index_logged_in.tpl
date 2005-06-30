@@ -12,9 +12,12 @@
 		</div>
 		<div id="menu">
 			<!-- BEGIN menu --> 
-			<a href="index.php?ref={REF}&id={ID}"><span class="small">{NAME}</span></a><br />
+			<a href="index.php?ref={REF}&id={ID}">{NAME}</a><br />
 			<!-- END menu --> 
-			<a href="login.php?PHPSESSID={PHPSESSID}"><span class="small">Login</span></a>
+			<p>-----------------------------------------------------</p>
+			<p class="small-caps">You've successfuly logged in!</p>			
+			<p>Welcome {USER}</p><br /><br />
+			<a href="index.php?action=logout"><p>Logout</p></a>
 		</div>
 		<div id="content">
 			<!-- BEGIN news -->
@@ -25,7 +28,7 @@
 			<b>---------------------------------------------------------------------------</b>
 			<!-- END news -->
 		</div>
-		<br style="clear:both;" />
+		<br style="clear:both;" />		
 	</div>
 </body>
 </html>
